@@ -6,6 +6,7 @@ const path = require("path");
 // Routes
 const userRoute = require("./api/users/user.routes");
 const tripRoute = require("./api/trips/trips.routes");
+const profileRoute = require("./api/profile/profile.routes");
 // DB
 const connectDB = require("./db");
 
@@ -16,7 +17,6 @@ const errorHandler = require("./middleware/errorHandler");
 
 // Passport
 const { localStrategy, jwtStrategy } = require("./middleware/passport");
-
 
 const app = express();
 
@@ -36,7 +36,8 @@ passport.use(jwtStrategy);
 app.use("/api", userRoute);
 app.use("/api/trips", tripRoute);
 app.use("/media", express.static(path.join(__dirname, "media")));
-  
+app.use("api/profile", profileRoute);
+
 app.use(errorHandler);
 
 app.listen(8000, () => {
