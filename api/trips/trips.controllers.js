@@ -23,6 +23,7 @@ exports.tripCreate = async (req, res, next) => {
     if (req.file) {
       // /media/imagename.jpg
       req.body.image = `/${req.file.path}`;
+      req.body.image = req.body.image.replace("\\", "/");
     }
     req.body.owner = req.user._id;
 
@@ -34,11 +35,28 @@ exports.tripCreate = async (req, res, next) => {
   }
 };
 
+exports.tripUpdate = async (req, res, next) => {
+  try {
+    if (req.trip.owner.toString() === req.user._id.toString()) {
+      if (req.file) {
+        req.body.image = `/${req.file.path}`;
+        req.body.image = req.body.image.replace("\\", "/");
+      }
+      const trip = await Trip.findByIdAndUpdate(req.trip, req.body, {
+        new: true,
+        runValidators: true,
+      });
+      res.status(200).json(trip);
+    } else {
+      next({ status: 401, message: "You are not the Owner" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
 exports.tripDelete = async (req, res, next) => {
   try {
-    console.log(req.trip.owner.toString());
-    console.log(req.user._id);
-
     if (req.trip.owner.toString() === req.user._id.toString()) {
       await req.trip.remove();
       res.status(204).end();
