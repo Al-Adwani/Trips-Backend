@@ -36,6 +36,7 @@ exports.tripCreate = async (req, res, next) => {
 
 exports.tripDelete = async (req, res, next) => {
   try {
+    // REVIEW: Remove console logs
     console.log(req.trip.owner.toString());
     console.log(req.user._id);
 

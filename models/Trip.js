@@ -8,6 +8,7 @@ const TripSchema = Schema({
   owner: { type: Schema.Types.ObjectId, ref: "User" },
 });
 
+// REVIEW: This line is for the slug, you dont have a slug, remove it
 TripSchema.plugin(mongooseSlugPlugin, { tmpl: "<%=title%>" });
 
 module.exports = model("Trip", TripSchema);
