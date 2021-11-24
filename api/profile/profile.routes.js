@@ -1,6 +1,7 @@
 const express = require("express");
-const { fetchProfile } = require("./profile.controllers");
+const { fetchListProfile } = require("./profile.controllers");
 const router = express.Router();
 
-router.get("/", fetchProfile);
+router.get("/userProfile", fetchListProfile);
+
 module.exports = router;

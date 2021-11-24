@@ -36,7 +36,7 @@ passport.use(jwtStrategy);
 app.use("/api", userRoute);
 app.use("/api/trips", tripRoute);
 app.use("/media", express.static(path.join(__dirname, "media")));
-app.use("api/profile", profileRoute);
+app.use("/api/profile", profileRoute);
 
 app.use(errorHandler);
 
