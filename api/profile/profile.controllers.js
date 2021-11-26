@@ -2,8 +2,12 @@ const Profile = require("../../models/Profile");
 
 exports.fetchProfile = async (req, res, next) => {
   try {
-    const { profileId } = req.params;
-    const userProfile = await Profile.findById(profileId);
+
+   
+    const userProfile = await Profile.findOne({
+      user: req.user._id.toString(),
+    });
+
     return res.json(userProfile);
   } catch (error) {
     next(error);

@@ -20,13 +20,9 @@ router.param("profileId", async (req, res, next, profileId) => {
   }
 });
 
-router.post;
+/* router.post; */
 
-router.get(
-  "/:profileId",
-  passport.authenticate("jwt", { session: false }),
-  fetchProfile
-);
+router.get("/", passport.authenticate("jwt", { session: false }), fetchProfile);
 
 router.put(
   "/:profileId",
